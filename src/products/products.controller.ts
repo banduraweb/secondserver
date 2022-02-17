@@ -55,4 +55,9 @@ export class ProductsController {
     this.client.emit('product_deleted', +id);
     return result;
   }
+  @Post(':id/like')
+  async like(@Param('id') id: string) {
+    const product = await this.productsService.findOne(+id);
+    return this.productsService.update(+id, { likes: product.likes + 1 });
+  }
 }
